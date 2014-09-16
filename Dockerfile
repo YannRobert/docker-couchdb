@@ -20,9 +20,6 @@ RUN rm /src/setup_nginx_proxy.sh
 RUN rm -rf /etc/supervisor
 ADD ./config/supervisor /etc/supervisor
 
-ADD run.sh /run.sh
-RUN chmod 755 /*.sh
-
 VOLUME ["/var/lib/couchdb", "/secret"]
 
 EXPOSE 80
