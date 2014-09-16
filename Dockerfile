@@ -5,18 +5,25 @@ RUN apt-get update -q && apt-get install software-properties-common -y && add-ap
 
 #install CouchDB
 RUN apt-get update && \
-    apt-get install -y couchdb pwgen && \
+    apt-get install -y couchdb pwgen logrotate supervisor && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/couchdb
-RUN sed -i -r 's/;bind_address = 127.0.0.1/bind_address = 0.0.0.0/' /etc/couchdb/local.ini
 
-ADD create_couchdb_admin_user.sh /create_couchdb_admin_user.sh
+ADD ./config/nginx /src/etc/nginx
+ADD ./setup_nginx_proxy.sh /src/setup_nginx_proxy.sh
+RUN /src/setup_nginx_proxy.sh
+RUN rm -r /src/etc/nginx
+RUN rm /src/setup_nginx_proxy.sh
+
+RUN rm -rf /etc/supervisor
+ADD ./config/supervisor /etc/supervisor
+
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 
-VOLUME ["/var/lib/couchdb"]
+VOLUME ["/var/lib/couchdb", "/secret"]
 
-EXPOSE 5984
-CMD ["/run.sh"]
+EXPOSE 80
+CMD ["/usr/bin/supervisord --configuration /etc/supervisor/supervisord.conf"]
