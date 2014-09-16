@@ -23,4 +23,4 @@ ADD ./config/supervisor /etc/supervisor
 VOLUME ["/var/lib/couchdb", "/secret"]
 
 EXPOSE 80
-CMD ["/usr/bin/supervisord --configuration /etc/supervisor/supervisord.conf"]
+CMD ["/usr/bin/supervisord"]
