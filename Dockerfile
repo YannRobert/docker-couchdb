@@ -14,5 +14,7 @@ ADD create_couchdb_admin_user.sh /create_couchdb_admin_user.sh
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 
+VOLUME ["/usr/local/var/lib/couchdb"]
+
 EXPOSE 5984
 CMD ["/run.sh"]
