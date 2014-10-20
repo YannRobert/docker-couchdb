@@ -22,6 +22,9 @@ RUN /src/setup_nginx_proxy.sh
 RUN rm -r /src/etc/nginx
 RUN rm /src/setup_nginx_proxy.sh
 
+ADD ./config/couchdb /src/etc/couchdb
+RUN cp /src/etc/couchdb/local.ini /etc/couchdb
+
 RUN rm -rf /etc/supervisor
 ADD ./config/supervisor /etc/supervisor
 
