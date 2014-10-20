@@ -11,6 +11,11 @@ RUN apt-get update && \
 
 RUN mkdir /var/run/couchdb
 
+# download and install binaries
+ADD ./install_nginx_binaries.sh /src/install_nginx_binaries.sh
+RUN /src/install_nginx_binaries.sh
+
+# configure
 ADD ./config/nginx /src/etc/nginx
 ADD ./setup_nginx_proxy.sh /src/setup_nginx_proxy.sh
 RUN /src/setup_nginx_proxy.sh
