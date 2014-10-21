@@ -25,6 +25,11 @@ RUN rm /src/setup_nginx_proxy.sh
 ADD ./config/couchdb /src/etc/couchdb
 RUN cp /src/etc/couchdb/local.ini /etc/couchdb
 
+ADD ./config/limits.conf.added /src/limits.conf.added
+RUN cat /src/limits.conf.added >> /etc/security/limits.conf
+
+ADD ./config/sysctl.conf /etc/sysctl.conf
+
 RUN rm -rf /etc/supervisor
 ADD ./config/supervisor /etc/supervisor
 
