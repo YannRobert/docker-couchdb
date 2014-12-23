@@ -1,0 +1,18 @@
+# copy this file to /usr/lib/systemd/system/couchdb.service
+# execute command : systemctl restart couchdb.service
+# enable execution on startup with : chkconfig couchdb on
+
+[Unit]
+Description=CouchDB container
+Author=Me
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a couchdb
+ExecStop=/usr/bin/docker stop -t 2 couchdb
+
+[Install]
+WantedBy=multi-user.target
+
+
