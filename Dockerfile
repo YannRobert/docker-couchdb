@@ -1,7 +1,7 @@
 FROM tutum/curl:trusty
 MAINTAINER FENG, HONGLIN <hfeng@tutum.co>
 
-RUN apt-get update -q && apt-get install software-properties-common -y && add-apt-repository ppa:couchdb/stable -y
+RUN apt-get update -q && apt-get upgrade -y && apt-get install software-properties-common -y && add-apt-repository ppa:couchdb/stable -y
 
 #install CouchDB
 RUN apt-get update && \
